@@ -349,6 +349,8 @@ export default function App() {
               isSignedIn ? <ProductList onAddToCart={handleAddToCart} /> : <Navigate to="/auth" />
             }
           /> */}
+          <Route path="/" element={<HomePage />} />
+
             <Route
               path="/products"
               element={
