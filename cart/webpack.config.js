@@ -40,7 +40,7 @@ module.exports = {
       exposes: {
         './CartApp': './src/App.jsx', 
         './CartShow': './src/CartShow',
-         "./cartState": "./src/cartState",// 👈 Expose the UI component
+         './cartState': './src/cartState',// 👈 Expose the UI component
       },
       shared: {
   react: {
