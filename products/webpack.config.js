@@ -42,10 +42,22 @@ module.exports = {
           './ProductList': './src/components/ProductList',
       },
    shared: {
-        react: { singleton: true, requiredVersion: "^18.2.0" },
-        "react-dom": { singleton: true, requiredVersion: "^18.2.0" },
-        "react-router-dom": { singleton: true, requiredVersion: "^6.22.3" },
-      },
+  react: {
+    singleton: true,
+    requiredVersion: "^18.2.0",
+    strictVersion: true,
+  },
+  "react-dom": {
+    singleton: true,
+    requiredVersion: "^18.2.0",
+    strictVersion: true,
+  },
+  "react-router-dom": {
+    singleton: true,
+    requiredVersion: "^6.22.3",
+  },
+},
+
 
 
     }),

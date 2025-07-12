@@ -47,11 +47,23 @@ module.exports = {
         cart: "cart@https://mfe-cart-app.netlify.app/remoteEntry.js",
         auth: 'auth@https://auth-store.netlify.app/remoteEntry.js',
       },
-      shared: {
-        react: { singleton: true, requiredVersion: "^18.2.0" },
-        "react-dom": { singleton: true, requiredVersion: "^18.2.0" },
-        "react-router-dom": { singleton: true, requiredVersion: "^6.22.3" },
-      },
+     shared: {
+  react: {
+    singleton: true,
+    requiredVersion: "^18.2.0",
+    strictVersion: true,
+  },
+  "react-dom": {
+    singleton: true,
+    requiredVersion: "^18.2.0",
+    strictVersion: true,
+  },
+  "react-router-dom": {
+    singleton: true,
+    requiredVersion: "^6.22.3",
+  },
+},
+
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
