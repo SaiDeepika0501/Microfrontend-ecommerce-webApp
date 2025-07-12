@@ -49,7 +49,7 @@ exports.login = async (req, res) => {
 
     const token = jwt.sign({ id: user._id }, SECRET, { expiresIn: '1d' });
 
-    const { password: _, ...userWithoutPassword } = user.toObject(); // optional rename for clarity
+    const { password:_, ...userWithoutPassword } = user.toObject(); // optional rename for clarity
     res.json({ token, user: userWithoutPassword });
   } catch (err) {
     res.status(500).json({ message: 'Login failed' });
