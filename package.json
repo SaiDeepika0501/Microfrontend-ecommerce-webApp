@@ -1,0 +1,13 @@
+{
+  "name": "mfe-store",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "concurrently \"npm:start:products\" \"npm:start:container\"",
+    "start:products": "cd products && npm start",
+    "start:container": "cd container && npm start"
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.0"
+  }
+}
