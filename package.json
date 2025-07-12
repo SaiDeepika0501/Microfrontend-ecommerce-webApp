@@ -6,9 +6,9 @@
     "start": "concurrently \"npm run start:products\" \"npm run start:container\"",
     "start:products": "cd products && npm start",
     "start:container": "cd container && npm start",
-    "build": "concurrently \"npm run build:products\" \"npm run build:container\"",
-    "build:products": "cd products && npm run build",
-    "build:container": "cd container && npm run build"
+    "build": "npm run build:products && npm run build:container",
+    "build:products": "cd products && npm install &&  npm run build",
+    "build:container": "cd container && npm install && npm run build"
   },
   "devDependencies": {
     "concurrently": "^8.0.0"
