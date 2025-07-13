@@ -10,7 +10,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "body-parser": "^2.2.0",
@@ -18,9 +17,19 @@
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.16.3"
+    "mongoose": "^8.16.3",
+    "multer": "^2.0.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SaiDeepika0501/ecommerce-backend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SaiDeepika0501/ecommerce-backend/issues"
+  },
+  "homepage": "https://github.com/SaiDeepika0501/ecommerce-backend#readme",
+  "description": ""
 }

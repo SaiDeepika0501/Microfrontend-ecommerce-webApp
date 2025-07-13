@@ -193,26 +193,201 @@
 
 // export default ProductList;
 // src/components/ProductList.jsx
-import React from "react";
-import './ProductList.css'; // Import CSS for styling
+// import React from "react";
+// import './ProductList.css'; // Import CSS for styling
+// import AddProductForm from './AddProductForm';
 
-function ProductList({ products }) {
-  if (!products || products.length === 0) {
-    return <p>No products available.</p>;
-  }
+// function ProductList({ products }) {
+//   <AddProductForm onProductAdded={loadProducts} />
+//   if (!products || products.length === 0) {
+//     return <p>No products available.</p>;
+//   }
+
+//   return (
+//     <div className="product-container">
+//       {products.map((product, index) => (
+//         <div key={product._id || product.id || index} className="product-card">
+//           {product.image && <img src={product.image} alt={product.name} width={150} />}
+//           <h3>{product.name}</h3>
+//           {product.title && <h4>{product.title}</h4>}
+//           <p>${product.price}</p>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// }
+
+// export default ProductList;
+// import React, { useEffect, useState } from 'react';
+// import { fetchProducts } from '../services/productService';
+// import AddProductForm from './AddProductForm';
+// import axios from 'axios';
+
+// function ProductList() {
+//   const [products, setProducts] = useState([]);
+//    const [editId, setEditId] = useState(null);
+//   const [editName, setEditName] = useState('');
+//   const [editPrice, setEditPrice] = useState('');
+
+//   const loadProducts = async () => {
+//     const data = await fetchProducts();
+//     setProducts(data);
+//   };
+
+//   useEffect(() => {
+//     loadProducts();
+//   }, []);
+//   const deleteProduct = async (id) => {
+//   try {
+//     await axios.delete(`http://localhost:5000/api/products/${id}`);
+//     loadProducts(); // Refresh list
+//   } catch (err) {
+//     console.error('Delete failed', err);
+//   }
+// };const editProduct = async (id) => {
+//     try {
+//       await axios.put(`http://localhost:5000/api/products/${id}`, {
+//         name: editName,
+//         price: parseFloat(editPrice),
+//       });
+//       setEditId(null); // Exit edit mode
+//       loadProducts(); // Refresh product list
+//     } catch (err) {
+//       console.error('Edit failed', err);
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <h2>Products</h2>
+//       <AddProductForm onProductAdded={loadProducts} /> {/* 👈 Add Form */}
+//       <div className="product-container">
+//          {products.map(product => (
+//           <div key={product._id} className="product-card">
+//             {editId === product._id ? (
+//               <>
+//                 <input
+//                   value={editName}
+//                   onChange={(e) => setEditName(e.target.value)}
+//                 />
+//                 <input
+//                   type="number"
+//                   value={editPrice}
+//                   onChange={(e) => setEditPrice(e.target.value)}
+//                 />
+//                 <button onClick={() => editProduct(product._id)}>💾 Save</button>
+//                 <button onClick={() => setEditId(null)}>❌ Cancel</button>
+//               </>
+//             ) : (
+//               <>
+//                 <h3>{product.name}</h3>
+//                 <p>${product.price}</p>
+//                 <button
+//                   onClick={() => {
+//                     setEditId(product._id);
+//                     setEditName(product.name);
+//                     setEditPrice(product.price);
+//                   }}
+//                 >
+//                   ✏️ Edit
+//                 </button>
+//                 <button onClick={() => deleteProduct(product._id)}>🗑 Delete</button>
+//               </>
+//             )}
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default ProductList;
+        
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import AddProductForm from './AddProductForm';
+
+function ProductList() {
+  const [products, setProducts] = useState([]);
+  const [editId, setEditId] = useState(null);
+  const [editName, setEditName] = useState('');
+  const [editPrice, setEditPrice] = useState('');
+
+  const loadProducts = async () => {
+    try {
+      const res = await axios.get('http://localhost:5000/api/products');
+      setProducts(res.data);
+    } catch (err) {
+      console.error('Error loading products:', err.message);
+    }
+  };
+
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
+  const deleteProduct = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/products/${id}`);
+      loadProducts();
+    } catch (err) {
+      console.error('Delete failed', err.message);
+    }
+  };
+
+  const editProduct = async (id) => {
+    try {
+      await axios.put(`http://localhost:5000/api/products/${id}`, {
+        name: editName,
+        price: parseFloat(editPrice),
+      });
+      setEditId(null);
+      loadProducts();
+    } catch (err) {
+      console.error('Edit failed', err.message);
+    }
+  };
 
   return (
-    <div className="product-container">
-      {products.map((product, index) => (
-        <div key={product._id || product.id || index} className="product-card">
-          {product.image && <img src={product.image} alt={product.name} width={150} />}
-          <h3>{product.name}</h3>
-          {product.title && <h4>{product.title}</h4>}
-          <p>${product.price}</p>
-        </div>
-      ))}
+    <div>
+      <h2>Products</h2>
+      <AddProductForm onProductAdded={loadProducts} />
+      <div className="product-container">
+        {products.map((product) => (
+          <div key={product._id} className="product-card">
+            {editId === product._id ? (
+              <>
+                <input value={editName} onChange={(e) => setEditName(e.target.value)} />
+                <input
+                  type="number"
+                  value={editPrice}
+                  onChange={(e) => setEditPrice(e.target.value)}
+                />
+                <button onClick={() => editProduct(product._id)}>💾 Save</button>
+                <button onClick={() => setEditId(null)}>❌ Cancel</button>
+              </>
+            ) : (
+              <>
+                <h3>{product.name}</h3>
+                <p>${product.price}</p>
+                <button
+                  onClick={() => {
+                    setEditId(product._id);
+                    setEditName(product.name);
+                    setEditPrice(product.price);
+                  }}
+                >
+                  ✏️ Edit
+                </button>
+                <button onClick={() => deleteProduct(product._id)}>🗑 Delete</button>
+              </>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
 
 export default ProductList;
+
